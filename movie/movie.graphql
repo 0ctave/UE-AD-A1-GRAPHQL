@@ -1,5 +1,12 @@
 type Query {
     movie_with_id(_id: String!): Movie
+    movie_with_title(_title: String!): Movie
+    movie_with_director(_director: String!): Movie
+    create_movie(_id: String!, _director: String!, _rating: Float!, _title: String!): Movie
+    update_movie_rating_with_id(_id: String!, _rating: Float!): Movie
+    del_movie_with_id(_id: String!): Movie
+    movies_rate_above_rating(_rating: Float!): [Movie]
+
 }
 
 type Movie {
