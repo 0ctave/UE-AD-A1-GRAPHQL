@@ -13,6 +13,12 @@ type_defs = load_schema_from_path('movie.graphql')
 query = QueryType()
 movie = ObjectType('Movie')
 query.set_field('movie_with_id', r.movie_with_id)
+query.set_field('movie_with_title', r.movie_with_title)
+query.set_field('movie_with_director', r.movie_with_director)
+query.set_field('create_movie', r.create_movie)
+query.set_field('update_movie_rating_with_id', r.update_movie_rating_with_id)
+query.set_field('del_movie_with_id', r.del_movie_with_id)
+query.set_field('movies_rate_above_rating', r.movies_rate_above_rating)
 schema = make_executable_schema(type_defs, movie, query)
 ###
 
