@@ -1,8 +1,8 @@
 ---
 openapi: 3.0.0
 info:
-  title: Showtime API
-  description: This is the API of the Showtime service
+  title: User API
+  description: This is the API of the User service
   contact:
     email: helene.coullon@imt-atlantique.fr
   license:

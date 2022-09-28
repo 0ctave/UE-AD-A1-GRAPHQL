@@ -20,8 +20,8 @@ app = Flask(__name__)
 #Variables
 PORT = 3203
 HOST = '0.0.0.0'
-MOVIE_URL = "http://localhost:3200"
-BOOKING_URL = "http://localhost:3201"
+MOVIE_URL = "http://localhost:3001"
+BOOKING_URL = "http://localhost:3202"
 BASE_URL = f"http://localhost:{PORT}"
 
 with open('{}/databases/users.json'.format("."), "r") as jsf:
@@ -71,6 +71,14 @@ def get_users_booking(userid):
 
    return make_response(jsonify(response["dates"]),200)
 
+
+def getMovieById(movieid:str):
+   query  ={
+      "query": 'query { movie_with_id(_id:"96798c08-d19b-4986-a05d-7da856efb697") { id title rating director }}'
+   }
+   res = requests.post(MOVIE_URL+"/graphql",json=query)
+   return res.text
+
 @app.route("/allmoviesbooked/<userid>")
 def get_all_movies_booked(userid):
    try :
@@ -84,16 +92,19 @@ def get_all_movies_booked(userid):
    for date in dates :
       for movie in date["movies"] :
          try :
-            res = json.loads(requests.get(f'{MOVIE_URL}/movies/{movie}').text)
-            movie_list.append(res)
+            res = getMovieById({movie})
+            movie_list.append(res['data']['movie_with_id'])
          except :
             return make_response(jsonify({'error':'error fetching movie microservice'}))
    return make_response(jsonify(movie_list))
-         
 
-   return None
 
 
 if __name__ == "__main__":
+
+   print(getMovieById("96798c08-d19b-4986-a05d-7da856efb697"))
+
    print("Server running in port %s"%(PORT))
    app.run(host=HOST, port=PORT)
+
+   
