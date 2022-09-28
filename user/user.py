@@ -74,7 +74,7 @@ def get_users_booking(userid):
 
 def getMovieById(movieid:str):
    query  ={
-      "query": 'query { movie_with_id(_id:"96798c08-d19b-4986-a05d-7da856efb697") { id title rating director }}'
+      "query": "query { movie_with_id(_id:\"movieid\") { id title rating director }}".replace("movieid",movieid)
    }
    res = requests.post(MOVIE_URL+"/graphql",json=query)
    return res.text
@@ -101,9 +101,6 @@ def get_all_movies_booked(userid):
 
 
 if __name__ == "__main__":
-
-   print(getMovieById("96798c08-d19b-4986-a05d-7da856efb697"))
-
    print("Server running in port %s"%(PORT))
    app.run(host=HOST, port=PORT)
 
